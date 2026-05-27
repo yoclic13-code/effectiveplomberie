@@ -1,0 +1,6 @@
+{
+  "name": "Effective' Plomberie",
+  "description": "Site professionnel pour services de plomberie, demandes de devis, projets et prestations",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

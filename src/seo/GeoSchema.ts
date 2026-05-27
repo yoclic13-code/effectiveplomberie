@@ -1,0 +1,56 @@
+/** Données géographiques — département 13 (Bouches-du-Rhône) */
+
+export const MARSEILLE_ARRONDISSEMENTS = [
+  { slug: 'marseille-1er', name: 'Marseille 1er', cp: '13001' },
+  { slug: 'marseille-2eme', name: 'Marseille 2ème', cp: '13002' },
+  { slug: 'marseille-3eme', name: 'Marseille 3ème', cp: '13003' },
+  { slug: 'marseille-4eme', name: 'Marseille 4ème', cp: '13004' },
+  { slug: 'marseille-5eme', name: 'Marseille 5ème', cp: '13005' },
+  { slug: 'marseille-6eme', name: 'Marseille 6ème', cp: '13006' },
+  { slug: 'marseille-7eme', name: 'Marseille 7ème', cp: '13007' },
+  { slug: 'marseille-8eme', name: 'Marseille 8ème', cp: '13008' },
+  { slug: 'marseille-9eme', name: 'Marseille 9ème', cp: '13009' },
+  { slug: 'marseille-10eme', name: 'Marseille 10ème', cp: '13010' },
+  { slug: 'marseille-11eme', name: 'Marseille 11ème', cp: '13011' },
+  { slug: 'marseille-12eme', name: 'Marseille 12ème', cp: '13012' },
+  { slug: 'marseille-13eme', name: 'Marseille 13ème', cp: '13013' },
+  { slug: 'marseille-14eme', name: 'Marseille 14ème', cp: '13014' },
+  { slug: 'marseille-15eme', name: 'Marseille 15ème', cp: '13015' },
+  { slug: 'marseille-16eme', name: 'Marseille 16ème', cp: '13016' },
+] as const;
+
+export const AIX_SECTEURS = [
+  { slug: 'aix-en-provence-13080', name: 'Aix-en-Provence', cp: '13080' },
+  { slug: 'aix-en-provence-13090', name: 'Aix-en-Provence', cp: '13090' },
+  { slug: 'aix-en-provence-13100', name: 'Aix-en-Provence', cp: '13100' },
+] as const;
+
+export const COMMUNES_13_SITEMAP = [
+  { slug: 'aubagne-13400', name: 'Aubagne', cp: '13400', priority: '0.8' },
+  { slug: 'la-ciotat-13600', name: 'La Ciotat', cp: '13600', priority: '0.7' },
+  { slug: 'martigues-13500', name: 'Martigues', cp: '13500', priority: '0.7' },
+  { slug: 'salon-de-provence-13300', name: 'Salon-de-Provence', cp: '13300', priority: '0.7' },
+  { slug: 'vitrolles-13127', name: 'Vitrolles', cp: '13127', priority: '0.7' },
+  { slug: 'marignane-13700', name: 'Marignane', cp: '13700', priority: '0.7' },
+  { slug: 'gardanne-13120', name: 'Gardanne', cp: '13120', priority: '0.6' },
+  { slug: 'cassis-13260', name: 'Cassis', cp: '13260', priority: '0.6' },
+  { slug: 'allauch-13190', name: 'Allauch', cp: '13190', priority: '0.6' },
+  { slug: 'istres-13800', name: 'Istres', cp: '13800', priority: '0.6' },
+  { slug: 'gemenos-13420', name: 'Gémenos', cp: '13420', priority: '0.5' },
+  { slug: 'bouc-bel-air-13320', name: 'Bouc-Bel-Air', cp: '13320', priority: '0.5' },
+  { slug: 'eguilles-13510', name: 'Éguilles', cp: '13510', priority: '0.5' },
+  { slug: 'venelles-13770', name: 'Venelles', cp: '13770', priority: '0.5' },
+  { slug: 'berre-letang-13130', name: "Berre-l'Étang", cp: '13130', priority: '0.5' },
+  { slug: 'fos-sur-mer-13270', name: 'Fos-sur-Mer', cp: '13270', priority: '0.5' },
+  { slug: 'port-de-bouc-13110', name: 'Port-de-Bouc', cp: '13110', priority: '0.5' },
+  { slug: 'miramas-13140', name: 'Miramas', cp: '13140', priority: '0.5' },
+  { slug: 'arles-13200', name: 'Arles', cp: '13200', priority: '0.6' },
+  { slug: 'saint-remy-de-provence-13210', name: 'Saint-Rémy-de-Provence', cp: '13210', priority: '0.5' },
+  { slug: 'trets-13530', name: 'Trets', cp: '13530', priority: '0.5' },
+  { slug: 'fuveau-13710', name: 'Fuveau', cp: '13710', priority: '0.5' },
+  { slug: 'rousset-13790', name: 'Rousset', cp: '13790', priority: '0.5' },
+  { slug: 'cabries-13480', name: 'Cabriès', cp: '13480', priority: '0.5' },
+  { slug: 'rognac-13340', name: 'Rognac', cp: '13340', priority: '0.5' },
+  { slug: 'lambesc-13410', name: 'Lambesc', cp: '13410', priority: '0.5' },
+  { slug: 'pelissanne-13330', name: 'Pélissanne', cp: '13330', priority: '0.5' },
+] as const;

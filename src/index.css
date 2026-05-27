@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  /* Precision Natural Tones pairings */
+  --color-natural-bg: #f8f9fa;
+  --color-natural-text: #2d3436;
+  --color-natural-card: #ffffff;
+  --color-natural-border: #e2e8f0;
+  --color-natural-muted: #64748b;
+  --color-natural-heading: #1e293b;
+  --color-natural-primary: #2563eb;
+  --color-natural-accent: #f97316;
+  --color-natural-green: #10b981;
+  --color-slate-850: #f1f5f9;
+  --color-slate-950: #f8f9fa;
+  --color-sky-450: #2563eb;
+  --color-slate-550: #64748b;
+  --color-slate-650: #475569;
+}
+
+/* Custom keyframes for infinite brand scroll */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+/* Soft ambient scroll bar scroll tracking adjusted for light mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2563eb;
+}
+
+/* Selection style overrides with natural tones */
+::selection {
+  background-color: rgba(37, 99, 235, 0.15);
+  color: #2563eb;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-natural-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --color-natural-primary: #0040cc;
+    --color-natural-heading: #000000;
+    --color-natural-bg: #ffffff;
+    --color-natural-border: #000000;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.focus\:not-sr-only:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
