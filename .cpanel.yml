@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/fypw1160/effective-plomberie.yoclic.fr/
+    - export REPOPATH=%{home}/repository
+    - cd $REPOPATH && npm install && npm run build
+    - /bin/cp -R $REPOPATH/dist/. $DEPLOYPATH
