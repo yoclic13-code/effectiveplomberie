@@ -71,10 +71,10 @@ if (is_array($json)) {
   $message = trim($_POST['message'] ?? '');
 }
 
-$name = htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
+$name = trim($name);
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
-$message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+$phone = trim($phone);
+$message = trim($message);
 
 if (empty($name) || empty($email) || empty($phone) || empty($message)) {
   http_response_code(400);
@@ -107,7 +107,7 @@ $subjectMap = [
   'recrutement' => 'Recrutement',
   'autre' => 'Autre demande',
 ];
-$subjectText = $subjectMap[$subject] ?? htmlspecialchars(trim($subject), ENT_QUOTES, 'UTF-8');
+$subjectText = $subjectMap[$subject] ?? trim($subject);
 if (empty($subjectText)) {
   $subjectText = 'Nouvelle demande de contact';
 }

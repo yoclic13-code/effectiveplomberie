@@ -122,14 +122,8 @@ if (!empty($urgency) && !isset($urgencyMap[$urgency])) {
   exit;
 }
 
-$clientName = htmlspecialchars($clientName, ENT_QUOTES, 'UTF-8');
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$phone = htmlspecialchars($phone, ENT_QUOTES, 'UTF-8');
-$address = htmlspecialchars($address, ENT_QUOTES, 'UTF-8');
-$details = htmlspecialchars($details, ENT_QUOTES, 'UTF-8');
-$approximateDate = !empty($approximateDate)
-  ? htmlspecialchars($approximateDate, ENT_QUOTES, 'UTF-8')
-  : 'Dès que possible';
+$approximateDate = !empty($approximateDate) ? $approximateDate : 'Dès que possible';
 
 $serviceText = $serviceMap[$serviceType];
 $urgencyText = !empty($urgency) ? ($urgencyMap[$urgency] ?? $urgency) : 'Non précisée';
