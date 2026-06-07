@@ -1,0 +1,43 @@
+{
+  "name": "EFFECTIVE'PLOMBERIE",
+  "short_name": "Effectiv Plomberie",
+  "description": "Plombier certifié RGE — Marseille & Bouches-du-Rhône (13)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#2563eb",
+  "lang": "fr-FR",
+  "orientation": "portrait-primary",
+  "categories": ["business", "utilities"],
+  "icons": [
+    {
+      "src": "/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Devis Gratuit",
+      "short_name": "Devis",
+      "description": "Obtenir un devis plomberie gratuit",
+      "url": "/devis",
+      "icons": [{ "src": "/images/favicon.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Urgence Plomberie",
+      "short_name": "Urgence",
+      "description": "Dépannage urgent 24h/24",
+      "url": "/contact",
+      "icons": [{ "src": "/images/favicon.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

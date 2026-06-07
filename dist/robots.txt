@@ -1,0 +1,19 @@
+# robots.txt — EFFECTIVE'PLOMBERIE
+# https://www.effective-plomberie.fr
+
+User-agent: *
+Allow: /
+
+Disallow: /src/
+Disallow: /__vite/
+Disallow: /node_modules/
+Disallow: /*.json$
+Disallow: /dist/
+
+Sitemap: https://www.effective-plomberie.fr/sitemap.xml
+Sitemap: https://www.effective-plomberie.fr/sitemap-local.xml
+Sitemap: https://www.effective-plomberie.fr/sitemap-blog.xml
+Sitemap: https://www.effective-plomberie.fr/sitemap-geo.xml
+
+User-agent: Googlebot-Image
+Allow: /images/
