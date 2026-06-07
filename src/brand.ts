@@ -61,9 +61,9 @@ export const BRAND = {
   googleBusinessUrl:
     'https://www.google.com/maps/search/?api=1&query=EFFECTIVE+PLOMBERIE+2+Boulevard+du+Clos+Gabriel+13100+Aix-en-Provence',
   hosting: {
-    name: 'Hostinger International Ltd',
-    address: '61 Lordou Vironos Street, 6023 Larnaca, Chypre',
-    website: 'https://www.hostinger.fr',
+    name: 'o2switch',
+    address: '222-224 Boulevard Gustave Flaitout, 63000 Clermont-Ferrand, France',
+    website: 'https://www.o2switch.fr',
   },
 } as const;
 

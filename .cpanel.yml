@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/fypw1160/effective-plomberie.yoclic.fr/
+    - export DEPLOYPATH=/home/fypw1160/effective-plomberie.fr/
     - /bin/cp -R %{home}/repository/dist/. $DEPLOYPATH
