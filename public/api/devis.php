@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $config = require __DIR__ . '/config.php';
+require_once __DIR__ . '/mail-template.php';
 
 session_start();
 $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
@@ -137,39 +138,23 @@ $to = $config['CONTACT_EMAIL'];
 $siteName = $config['SITE_NAME'];
 $from = $config['SMTP_FROM'];
 
-$emailSubject = "$siteName - Demande de devis - $serviceText";
-$emailBody =
-  "Nouvelle demande de devis\n\n" .
-  "Nom: $clientName\n" .
-  "E-mail: $email\n" .
-  "Téléphone: $phone\n" .
-  "Adresse: $address\n\n" .
-  "Prestation: $serviceText\n" .
-  "Urgence: $urgencyText\n" .
-  "Date souhaitée: $approximateDate\n\n" .
-  "Description:\n" . ($details !== '' ? $details : '(non renseignée)') . "\n\n" .
-  "---\n" .
-  "IP: $ip\n" .
-  "Date: " . date('d/m/Y H:i:s') . "\n";
+$emailSubject = "$siteName — Devis — $serviceText";
+$htmlBody = mail_build_devis_html($config, [
+  'clientName' => $clientName,
+  'email' => $email,
+  'phone' => $phone,
+  'address' => $address,
+  'serviceText' => $serviceText,
+  'urgencyText' => $urgencyText,
+  'approximateDate' => $approximateDate,
+  'details' => $details,
+  'ip' => $ip,
+]);
 
-$headers = "From: $siteName <$from>\r\n";
-$headers .= "Reply-To: $clientName <$email>\r\n";
-$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-$mailSent = @mail($to, $emailSubject, $emailBody, $headers);
+$mailSent = mail_send_html($to, $emailSubject, $htmlBody, $siteName, $from, $clientName, $email);
 
 if ($mailSent) {
-  echo json_encode(['message' => 'Demande de devis envoyée avec succès !']);
+  mail_respond_success('Demande de devis envoyée avec succès !');
 } else {
-  $host = $_SERVER['HTTP_HOST'] ?? '';
-  $isLocal = in_array($host, ['localhost', '127.0.0.1']) ||
-    stripos($host, 'localhost') !== false ||
-    stripos($host, '.local') !== false;
-
-  if ($isLocal) {
-    echo json_encode(['message' => 'Demande de devis envoyée avec succès ! (Mode test local)']);
-  } else {
-    http_response_code(500);
-    echo json_encode(['error' => "Erreur lors de l'envoi. Veuillez réessayer ou nous appeler."]);
-  }
+  mail_respond_error(500, "Erreur lors de l'envoi. Veuillez réessayer ou nous appeler.");
 }
