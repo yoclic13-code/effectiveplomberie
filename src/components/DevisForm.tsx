@@ -1,13 +1,13 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { ClipboardList, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
-import { DevisSubmission } from '../types';
 import {
   trackDevisSubmit,
   trackFormStart,
   mapDevisUrgency,
   detectZoneFromAddress,
 } from '../analytics/ga4';
+import { submitDevisForm } from '../lib/formApi';
 
 export default function DevisForm() {
   const [formData, setFormData] = useState({
@@ -23,6 +23,7 @@ export default function DevisForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const formStarted = useRef(false);
 
   const handleFormStart = useCallback(() => {
@@ -31,36 +32,18 @@ export default function DevisForm() {
     trackFormStart({ form_name: 'devis' });
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.clientName || !formData.email || !formData.phone || !formData.address) return;
 
     setIsSubmitting(true);
+    setError(null);
 
-    setTimeout(() => {
-      const submissions = JSON.parse(localStorage.getItem('devisSubmissions') || '[]');
-      const newSubmission: DevisSubmission = {
-        id: 'd_' + Math.random().toString(36).substring(2, 9),
-        clientName: formData.clientName,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address,
-        urgency: formData.urgency,
-        serviceType: formData.serviceType,
-        details: formData.details,
+    try {
+      await submitDevisForm({
+        ...formData,
         approximateDate: formData.approximateDate || 'Dès que possible',
-        budget: '',
-        date: new Date().toLocaleDateString('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      };
-
-      submissions.unshift(newSubmission);
-      localStorage.setItem('devisSubmissions', JSON.stringify(submissions));
+      });
 
       trackDevisSubmit({
         service_type: formData.serviceType,
@@ -68,7 +51,6 @@ export default function DevisForm() {
         zone: detectZoneFromAddress(formData.address),
       });
 
-      setIsSubmitting(false);
       setIsSubmitted(true);
       formStarted.current = false;
       setFormData({
@@ -81,7 +63,11 @@ export default function DevisForm() {
         details: '',
         approximateDate: '',
       });
-    }, 1200);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const serviceOptions = [
@@ -251,6 +237,12 @@ export default function DevisForm() {
               className="w-full bg-slate-50 border border-natural-border focus:border-natural-primary focus:ring-2 focus:ring-natural-primary/10 rounded-xl px-4 py-3 text-sm text-natural-heading placeholder-slate-400 outline-none transition-all resize-none font-sans"
             />
           </div>
+
+          {error && (
+            <p className="text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3">
+              {error}
+            </p>
+          )}
 
           <div>
             <button

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { Send, CheckCircle, ArrowRight, Phone } from 'lucide-react';
 import { motion } from 'motion/react';
 import { BRAND } from '../brand';
-import { ContactSubmission } from '../types';
 import { trackContactSubmit, trackFormStart, trackPhoneCall } from '../analytics/ga4';
+import { submitContactForm } from '../lib/formApi';
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -17,6 +17,7 @@ export default function ContactForm() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const formStarted = useRef(false);
 
   const handleFormStart = useCallback(() => {
@@ -25,37 +26,16 @@ export default function ContactForm() {
     trackFormStart({ form_name: 'contact' });
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.phone || !formData.message) return;
 
     setIsSubmitting(true);
+    setError(null);
 
-    // Simulate short network latency
-    setTimeout(() => {
-      const submissions = JSON.parse(localStorage.getItem('contactSubmissions') || '[]');
-      const newSubmission: ContactSubmission = {
-        id: 'c_' + Math.random().toString(36).substring(2, 9),
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        subject: formData.subject,
-        message: formData.message,
-        date: new Date().toLocaleDateString('fr-FR', {
-          day: '2-digit',
-          month: '2-digit',
-          year: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })
-      };
-
-      submissions.unshift(newSubmission);
-      localStorage.setItem('contactSubmissions', JSON.stringify(submissions));
-
+    try {
+      await submitContactForm(formData);
       trackContactSubmit({ subject: formData.subject });
-
-      setIsSubmitting(false);
       setIsSubmitted(true);
       formStarted.current = false;
       setFormData({
@@ -63,9 +43,13 @@ export default function ContactForm() {
         email: '',
         phone: '',
         subject: 'depannage',
-        message: ''
+        message: '',
       });
-    }, 1200);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue. Veuillez réessayer.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -182,6 +166,12 @@ export default function ContactForm() {
               className="w-full bg-slate-50 border border-natural-border focus:border-natural-primary focus:ring-2 focus:ring-natural-primary/10 rounded-xl px-4 py-3 text-sm text-natural-heading placeholder-slate-400 outline-none transition-all resize-none font-sans"
             />
           </div>
+
+          {error && (
+            <p className="text-sm text-rose-600 bg-rose-50 border border-rose-100 rounded-xl px-4 py-3">
+              {error}
+            </p>
+          )}
 
           {/* Submit Button */}
           <div className="pt-2">

@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'motion/react';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
-import AdminSection from './components/AdminSection';
 import SEOHead from './components/SEOHead';
 import ZoneSEO from './components/ZoneSEO';
 
@@ -166,7 +165,6 @@ export default function App() {
       </main>
 
       <Footer />
-      <AdminSection />
 
       <CookieBanner
         show={showBanner}
